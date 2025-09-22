@@ -1,0 +1,128 @@
+.place-order {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  margin: 100px auto 50px auto;
+  width: 90%;
+  max-width: 1200px;
+  font-family: Arial, sans-serif;
+}
+
+/* Left Section (Form) */
+.place-order-left {
+  flex: 2;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.place-order-left .title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.place-order-left input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.place-order-left input:focus {
+  border: 1px solid #ff6347;
+}
+
+.multi-fields {
+  display: flex;
+  gap: 15px;
+}
+
+.multi-fields input {
+  flex: 1;
+}
+
+/* Right Section (Cart Total) */
+.place-order-right {
+  flex: 1;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-total h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.cart-total-detail {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+  font-size: 16px;
+}
+
+.cart-total hr {
+  border: none;
+  height: 1px;
+  background: #e0e0e0;
+  margin: 10px 0;
+}
+
+.cart-total button {
+  width: 100%;
+  padding: 14px;
+  background: #ff6347;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.3s;
+}
+
+.cart-total button:hover {
+  background: #e5533f;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .place-order {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .place-order-left,
+  .place-order-right {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .multi-fields {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .cart-total h2 {
+    font-size: 18px;
+  }
+
+  .cart-total-detail {
+    font-size: 14px;
+  }
+
+  .cart-total button {
+    font-size: 14px;
+    padding: 12px;
+  }
+}
