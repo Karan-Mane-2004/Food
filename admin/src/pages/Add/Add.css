@@ -1,45 +1,121 @@
 .add {
-  width: 70%;
-  margin-left: max(5vw, 25px);
-  margin-top: 50px;
-  color: #6d6d6d;
-  font-size: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 60px;
+  background-color: #fafafa;
+  margin-left: 230px; /* space for sidebar */
 }
 
+/* ---------- FORM ---------- */
 .add form {
-  gap: 20px;
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  padding: 32px 28px;
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* ---------- IMAGE UPLOAD ---------- */
+.add-image-upload {
+  display: flex;
+  justify-content: center;
 }
 
 .add-image-upload img {
-  width: 120px;
-}
-
-.add-product-name,
-.add-product-description {
-  width: max(40%, 280px);
-}
-
-.add-product-name input,
-.add-product-description textarea {
+  width: 200px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px dashed #c8c8c8;
   padding: 10px;
+  cursor: pointer;
+  background-color: #fcfcfc;
+  transition: 0.3s;
 }
 
+.add-image-upload img:hover {
+  border-color: #ff3b3b;
+  transform: scale(1.05);
+}
+
+/* ---------- INPUTS ---------- */
+.add input,
+.add textarea,
+.add select {
+  width: 100%;
+  border: 2px solid #d8d8d8;
+  border-radius: 8px;
+  font-size: 15px;
+  padding: 12px;
+  transition: 0.25s;
+}
+
+.add input:focus,
+.add textarea:focus,
+.add select:focus {
+  border-color: #ff3b3b;
+  outline: none;
+  transform: scale(1.01);
+}
+
+/* ---------- CATEGORY + PRICE ROW ---------- */
 .add-category-price {
   display: flex;
-  gap: 30px;
-}
-.add-category-price select,
-.add-category-price input {
-  max-width: 120px;
-  padding: 10px;
+  gap: 18px;
 }
 
+.add-category-price select,
+.add-category-price input {
+  flex: 1;
+}
+
+/* ---------- SUBMIT BUTTON ---------- */
 .add-btn {
-  max-width: 120px;
+  width: 100%;
+  padding: 14px;
+  background-color: #ff3b3b;
+  color: #fff;
   border: none;
-  padding: 10px;
-  background-color: black;
-  color: white;
+  border-radius: 8px;
   cursor: pointer;
-  border-radius: 4px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: 0.3s ease;
+  text-transform: uppercase;
+}
+
+.add-btn:hover {
+  background-color: #e62f2f;
+  transform: translateY(-2px);
+}
+
+/* ---------- ANIMATION ---------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .add {
+    margin-left: 70px;
+  }
+
+  .add-category-price {
+    flex-direction: column;
+    gap: 12px;
+  }
 }

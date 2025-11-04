@@ -3,9 +3,9 @@ import "./Add.css";
 import axios from "axios";
 import { assets } from "../../assets/assets";
 import { toast } from "react-toastify";
+
 function Add({ url }) {
-  // const url = "http://localhost:4000";
-  const [image, setImage] = useState(false);
+  const [image, setImage] = useState(null);
   const [data, setData] = useState({
     name: "",
     description: "",
@@ -13,35 +13,36 @@ function Add({ url }) {
     category: "Salad",
   });
 
-  const onChangeHandler = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setData((data) => ({ ...data, [name]: value }));
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
   };
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
 
-  const onSubmitHandler = async (event) => {
-    event.preventDefault();
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    if (!image) return toast.error("Image is required!");
+
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);
     formData.append("price", Number(data.price));
     formData.append("category", data.category);
     formData.append("image", image);
-    const response = await axios.post(`${url}/api/food/add`, formData);
-    if (response.data.success) {
-      setData({
-        name: "",
-        description: "",
-        price: "",
-        category: "Salad",
-      });
-      setImage(false);
-      toast.success(response.data.message);
-    } else {
-      toast.error(response.data.message);
+
+    try {
+      const response = await axios.post(`${url}/api/food/add`, formData);
+
+      if (response.data.success) {
+        toast.success(" Food added successfully!");
+        setData({ name: "", description: "", price: "", category: "Salad" });
+        setImage(null);
+      } else {
+        toast.error(response.data.message || "Failed!");
+      }
+    } catch (err) {
+      console.log("Frontend Error:", err);
+      toast.error("Server error! Check backend logs.");
     }
   };
 
@@ -49,75 +50,64 @@ function Add({ url }) {
     <div className="add">
       <form className="flex-col" onSubmit={onSubmitHandler}>
         <div className="add-image-upload flex-col">
-          <p>Upload Image</p>
           <label htmlFor="image">
             <img
               src={image ? URL.createObjectURL(image) : assets.upload_area}
-              alt=""
+              alt="upload"
             />
           </label>
           <input
-            onChange={(e) => setImage(e.target.files[0])}
             type="file"
             id="image"
             hidden
-            required
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
 
-        <div className="add-product-name flex-col">
-          <p>Product Name</p>
-          <input
-            onChange={onChangeHandler}
-            value={data.name}
-            type="text"
-            name="name"
-            placeholder="Type here"
-          />
-        </div>
-        <div className="add-product-description flex-col">
-          <p>Product Description</p>
-          <textarea
-            onChange={onChangeHandler}
-            value={data.description}
-            name="description"
-            rows="6"
-            placeholder="Write content here"
-            required
-          ></textarea>
-        </div>
+        <input
+          type="text"
+          name="name"
+          placeholder="Product Name"
+          value={data.name}
+          onChange={onChangeHandler}
+          required
+        />
 
-        <div className="add-category-price">
-          <div className="add-category flex-col">
-            <p>Product Category</p>
-            <select
-              name="category"
-              onChange={onChangeHandler}
-              value={data.category}
-            >
-              <option value="Salad">Salad</option>
-              <option value="Rolls">Rolls</option>
-              <option value="Desert">Desert</option>
-              <option value="Sandwitch">Sandwitch</option>
-              <option value="Cake">Cake</option>
-              <option value="Pure Veg">Pure Veg</option>
-              <option value="Pasta">Pasta</option>
-              <option value="Noodles">Noodles</option>
-            </select>
-          </div>
+        <textarea
+          name="description"
+          rows="6"
+          placeholder="Description"
+          value={data.description}
+          onChange={onChangeHandler}
+          required
+        />
 
-          <div className="add-price flex-col">
-            <p>Product Price</p>
-            <input
-              onChange={onChangeHandler}
-              value={data.price}
-              type="Number"
-              name="price"
-              placeholder="$20"
-            />
-          </div>
-        </div>
-        <button type="Submit" className="add-btn">
+        <select
+          name="category"
+          value={data.category}
+          onChange={onChangeHandler}
+        >
+          <option value="Salad">Salad</option>
+          <option value="Rolls">Rolls</option>
+          <option value="Deserts">Deserts</option>
+          <option value="Sandwich">Sandwich</option>
+          <option value="Cake">Cake</option>
+          <option value="Pure Veg">Pure Veg</option>
+          <option value="Pasta">Pasta</option>
+          <option value="Noodles">Noodles</option>
+        </select>
+
+        <input
+          type="number"
+          name="price"
+          placeholder="Price"
+          value={data.price}
+          onChange={onChangeHandler}
+          required
+        />
+
+        <button type="submit" className="add-btn">
           Add
         </button>
       </form>

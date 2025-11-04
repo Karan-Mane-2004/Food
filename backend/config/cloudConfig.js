@@ -1,19 +1,21 @@
-// cloudConfig.js
+import dotenv from "dotenv";
+dotenv.config();
 import { v2 as cloudinary } from "cloudinary";
+import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 cloudinary.config({
-  cloud_name: "foodDel",
-  api_key: 631625578227829,
-  api_secret: "xMRnCWL9HIbjz69nP7sE8p86FR4",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const storage = new CloudinaryStorage({
+export const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: "foodDel", // folder name in Cloudinary
-    allowed_formats: ["png", "jpg", "jpeg"],
+    folder: "fooddel",
+    allowed_formats: ["png", "jpg", "jpeg", "webp"],
   },
 });
 
-export { cloudinary, storage };
+export default cloudinary;

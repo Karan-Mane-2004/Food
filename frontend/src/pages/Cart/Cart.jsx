@@ -30,7 +30,7 @@ function Cart() {
             return (
               <div key={item._id}>
                 <div className="cart-item-title cart-item-item">
-                  <img src={url + "/images/" + item.image} alt={item.name} />
+                  <img src={item.image} alt={item.name} />
                   <p>{item.name}</p>
                   <p>${item.price}</p>
                   <p>{cartItems[item._id]}</p>

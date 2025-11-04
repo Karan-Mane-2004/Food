@@ -1,39 +1,38 @@
-import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
+import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db.js";
+
 import foodRouter from "./routes/foodRoute.js";
 import userRouter from "./routes/userRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 
-// app config
 const app = express();
 const port = process.env.PORT || 4000;
 
-// middleware (always before routes)
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
-// db connection
+// Connect DB
 connectDB();
 
-// static files
-app.use("/images", express.static("uploads"));
-
-// api routes
+// Routes
 app.use("/api/food", foodRouter);
 app.use("/api/user", userRouter);
-
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 
-app.get("/", (req, res) => {
-  res.send("working well");
+// Test route
+app.get("/", (req, res) => res.send("Backend is Running "));
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("GLOBAL ERROR:", err);
+  res.status(500).json({ message: err.message || "Server Error" });
 });
 
-// app listen
-app.listen(port, () => {
-  console.log(`server is running on port ${port}`);
-});
+app.listen(port, () =>
+  console.log(` Server is running on http://localhost:${port}`)
+);
