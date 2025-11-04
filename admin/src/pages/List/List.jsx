@@ -56,9 +56,9 @@ function List({ url }) {
             <img src={item.image} alt={item.name} />
             <p>{item.name}</p>
             <p>{item.category}</p>
-            <p>₹{item.price}</p>
+            <p>${item.price}</p>
             <p className="cursor" onClick={() => removeFood(item._id)}>
-              ❌
+              X
             </p>
           </div>
         ))}
