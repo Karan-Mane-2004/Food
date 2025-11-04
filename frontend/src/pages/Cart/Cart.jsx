@@ -4,7 +4,7 @@ import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 
 function Cart() {
-  const { food_list, cartItems, removeFromCart, getTotalCartAmount, url } =
+  const { food_list, cartItems, removeFromCart, getTotalCartAmount } =
     useContext(StoreContext);
 
   const subtotal = getTotalCartAmount();
@@ -25,6 +25,7 @@ function Cart() {
         </div>
         <br />
         <hr />
+
         {food_list.map((item) => {
           if (cartItems[item._id] > 0) {
             return (
@@ -35,9 +36,12 @@ function Cart() {
                   <p>${item.price}</p>
                   <p>{cartItems[item._id]}</p>
                   <p>${item.price * cartItems[item._id]}</p>
-                  <p onClick={() => removeFromCart(item._id)} className="cross">
-                    x
-                  </p>
+                  <span
+                    onClick={() => removeFromCart(item._id)}
+                    className="cross"
+                  >
+                    ✕
+                  </span>
                 </div>
                 <hr />
               </div>
@@ -70,6 +74,7 @@ function Cart() {
             PROCEED TO CHECKOUT
           </button>
         </div>
+
         <div className="cart-promocode">
           <div>
             <p>If you have a promo code, Enter here</p>
